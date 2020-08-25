@@ -1,12 +1,8 @@
 # sent-pdf
-PDF sucks, but so does school.
 
-I made this so I don't have to take my laptop to school to give a presentation with sent.
+My fork of suckless's sent tool, built off of BigHeadGeorge's fork.
+This adds a keybind to save the sent presentation to a PDF, which
+is unfortunately sometimes necessary.
 
-Press 'g' (preferably while fullscreen) and sent will flip through all of your slides and spit them out as a PDF.
-
-Dependencies
-
-* Xlib
-* Xft
-* cairo
+This fork also swaps the color of the background and foreground,
+as well as a few other small tweaks.
