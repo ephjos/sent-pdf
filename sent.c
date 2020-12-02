@@ -554,7 +554,9 @@ run()
 void
 xdraw()
 {
-	unsigned int height, width, i;
+	unsigned int height, width, i, pnf, pne;
+	char pn_buf1[16] = {0};
+	char pn_buf2[24] = {0};
 	Image *im = slides[idx].img;
 
 	getfontsize(&slides[idx], &width, &height);
@@ -571,11 +573,33 @@ xdraw()
 			         0,
 			         slides[idx].lines[i],
 			         0);
-		if (idx != 0 && progressheight != 0) {
-			drw_rect(d,
-			         0, xw.h - progressheight,
-			         (xw.w * idx)/(slidecount - 1), progressheight,
-			         1, 0);
+		if (idx != 0 && show_progress) {
+			pnf = 4;
+			drw_setfontset(d, fonts[pnf]);
+			pne = sprintf(pn_buf1, "%d/%d", idx, slidecount-1);
+			printf("buf1:%s\n", pn_buf1);
+			if (pne != -1) {
+				//pne = sprintf(pn_buf2, "%*s", (int)(512-strlen(pn_buf1)), pn_buf1);
+				pne = sprintf(pn_buf2, "%*s", 23, pn_buf1);
+				printf("buf2:%s\n", pn_buf2);
+				if (pne != -1) {
+					drw_text(d,
+									 (xw.w) - 320,
+									 (xw.h-fonts[pnf]->h-10),
+									 320,
+									 fonts[pnf]->h,
+									 0,
+									 pn_buf2,
+									 0);
+					drw_setfontset(d, fonts[0]);
+					/*
+					drw_rect(d,
+									 0, xw.h - progressheight,
+									 (xw.w * idx)/(slidecount - 1), progressheight,
+									 1, 0);
+					*/
+				}
+			}
 		}
 		drw_map(d, xw.win, 0, 0, xw.w, xw.h);
 	} else {
